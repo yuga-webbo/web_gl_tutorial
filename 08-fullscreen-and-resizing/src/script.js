@@ -22,9 +22,25 @@ scene.add(mesh)
  * Sizes
  */
 const sizes = {
-    width: 800,
-    height: 600
+    width: window.innerWidth,
+    height: window.innerHeight
 }
+window.addEventListener('resize', () =>{
+console.log('resize')
+    // Update sizes
+    sizes.width = window.innerWidth;
+    sizes.height = window.innerHeight;
+
+    //Update camera
+    camera.aspect = sizes.width / sizes.height;
+    camera.updateProjectionMatrix();
+
+    //Update Renderer
+    renderer.setSize(sizes.width, sizes.height);
+
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))  
+
+});
 
 /**
  * Camera
@@ -44,7 +60,9 @@ controls.enableDamping = true
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
-renderer.setSize(sizes.width, sizes.height)
+renderer.setSize(sizes.width, sizes.height);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))  
+    
 
 /**
  * Animate
